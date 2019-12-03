@@ -1,0 +1,14 @@
+autoDiscovery:
+  appId: "15900667"
+db:
+ connection:
+  host: "den1.mssql6.gear.host"
+  port: "1433"
+  user: "customer4"
+  password: "![4mOMm+wk4zGbIC3IbRG+5g==]"
+  
+http:
+ host: "localhost"
+ port: "8081"
+ path: "/api/*"
+ 

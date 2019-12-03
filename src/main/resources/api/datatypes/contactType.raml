@@ -1,0 +1,28 @@
+#%RAML 1.0 DataType
+
+type: object
+properties:
+      contactId:
+        example: 1
+        type: number
+        required: false
+      firstName:
+        example: "Bob"
+        type: string
+      lastName:
+        example: "Frederick"
+        type: string
+        required: false
+      dob: 
+        example: 2015-05-23
+        type: date-only
+      gender: 
+        example: "M"
+        type: string
+        enum: ["M", "F"]
+      title: 
+        example: "Manager"
+        type: string
+      email:
+        example: "bfe@sample.com"
+        type: string

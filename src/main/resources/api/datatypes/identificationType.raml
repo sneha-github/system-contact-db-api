@@ -1,0 +1,60 @@
+#%RAML 1.0 DataType
+
+type: object
+properties:
+      contactId:
+        example: 1
+        type: number
+      firstName:
+        example: "Bob"
+        type: string
+      lastName:
+        example: "Frederick"
+        type: string
+      dob: 
+        example: 2015-05-23
+        type: date-only
+      gender: 
+        example: "M"
+        type: string
+        enum: ["M", "F"]
+      title: 
+        example: "Manager"
+        type: string
+      addressId:
+        example: 1
+        type: number
+      addressType:
+        example: "Home"
+        type: string
+        enum: ["Home", "Work"]
+      number:
+        example: 12345
+        type: number
+      street: 
+        example: "blah blah St"
+        type: string
+      unit: 
+        example: "1 a"
+        type: string
+      city: 
+        example: "Somewhere"
+        type: string
+      state:
+        example: "WV"
+        type: string
+      zipcode:
+        example: "12345"
+        type: string
+      communicationId:
+        example: 1
+        type: number
+      communicationType:
+        example: "email"
+        type: string
+        enum: ["email", "cell", "phone", "fax"]
+      value:
+        example: "bfe@sample.com"
+        type: string
+      preferred:
+        type: boolean

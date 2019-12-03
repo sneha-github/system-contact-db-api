@@ -1,0 +1,80 @@
+#%RAML 1.0
+title: system-contact-db-api
+
+mediaType:
+  - application/json
+version: 1.0.0
+protocols:
+  - HTTP
+
+types:
+  identificationType: !include datatypes/identificationType.raml
+  errorResponse: !include datatypes/errorResponseType.raml
+  contactType: !include datatypes/contactType.raml
+  
+
+traits: 
+ logging: !include traits/logging.raml
+ clientId-enforcement: !include  traits/security.raml
+ errorTraits: !include traits/error-trait.raml 
+            
+/contactDetails:
+  get:
+    queryParameters:
+      email:
+          example: bfe@sample.com 
+          required: true
+          type: string
+    displayName: Get contact's identification details from the database w.r.t. user's email address
+    description: This API will get contact's all the details from the database w.r.t. user's email address
+    responses:
+      200:
+          body:
+              application/json:
+                  type: contactType
+                  example: !include example/responseContactDetails.raml
+  post:
+    displayName: Add contact's identifiation details to the database
+    description: This API will add contact's identifiation details to the database
+    body:
+        application/json:
+          type: contactType
+          example: !include example/requestContactDetails.raml
+    responses:
+        201:
+          body:
+            application/json:
+              example: !include example/postSuccessResponse.raml
+            
+  put:
+    displayName: Update contact's identifiation details in the database
+    description: This API will Update contact's identifiation details in the database
+    body:
+        application/json:
+          type: contactType
+          example: !include example/responseContactDetails.raml
+    responses:
+        201:
+          body:
+            application/json:
+              example: !include  example/putSuccessResponse.raml
+  delete:
+    displayName: Update contact's identifiation details in the database
+    description: This API will Update contact's identifiation details in the database
+    queryParameters:
+      contactId:
+          example: 2
+          required: true
+          type: number
+    responses:
+       204:
+       
+/getCompleteContactDetails:
+  get:
+    displayName: Update contact's identifiation details in the database
+    description: This API will Update contact's identifiation details in the database
+    responses:
+      200:
+          body:
+              application/json:
+                  type: identificationType

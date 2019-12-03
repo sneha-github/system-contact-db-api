@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd  http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+    <apikit:config name="system-contact-db-api-config" api="system-contact-db-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" raml="api/system-contact-db-api.raml"/>
+    <flow name="system-contact-db-api-main">
+        <http:listener config-ref="httpListenerConfig" path="/api/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:router config-ref="system-contact-db-api-config" />
+        <error-handler ref="globalError_Handler" />
+    </flow>
+    <flow name="system-contact-db-api-console">
+        <http:listener config-ref="httpListenerConfig" path="/console/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:console config-ref="system-contact-db-api-config" />
+        <error-handler ref="globalError_Handler" />
+    </flow>
+    <flow name="put:\contactDetails:application\json:system-contact-db-api-config">
+       
+        <flow-ref doc:name="Flow Reference" doc:id="0bfefc5c-52b7-4e3e-80f9-b818882216a9" name="updateContactDetails"/>
+		<error-handler ref="globalError_Handler" />
+    </flow>
+    <flow name="delete:\contactDetails:system-contact-db-api-config">
+        
+        <flow-ref doc:name="Flow Reference" doc:id="238bbaed-85af-45ad-95af-3ceb1c7f36d1" name="deleteContactDetails"/>
+		<error-handler ref="globalError_Handler" />
+    </flow>
+    <flow name="get:\contactDetails:system-contact-db-api-config">
+        
+        <flow-ref doc:name="Flow Reference" doc:id="f85cbec2-d024-4d5a-a300-007fdeee0182" name="getContactDetailsByEmail"/>
+		<error-handler ref="globalError_Handler" />
+    </flow>
+    <flow name="post:\contactDetails:application\json:system-contact-db-api-config">
+        
+        <flow-ref doc:name="Flow Reference" doc:id="d396fd78-c4fc-4f60-b0ed-30b49d81bc17" name="postContactDetails"/>
+		<error-handler ref="globalError_Handler" />
+    </flow>
+    <flow name="get:\getCompleteContactDetails:system-contact-db-api-config">
+		<flow-ref doc:name="Flow Reference" doc:id="f442dddc-aea9-4311-8473-a32da966b4f2" name="getCompleteContactDetails"/>
+		<error-handler ref="globalError_Handler" />
+    </flow>
+</mule>
